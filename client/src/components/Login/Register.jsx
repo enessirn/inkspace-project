@@ -1,20 +1,51 @@
 import React from "react";
-import { Button, Form, Input, InputNumber } from "antd";
+import { Button, Form, Input } from "antd";
 import checkPassword from "../../utils/checkPassword";
-import { ToastContainer, toast } from 'react-toastify';
+import { ToastContainer, toast } from "react-toastify";
+import axios from "axios";
 function Register() {
-  const onFinish = (values) => {
-    if (checkPassword(values.password, values.confirmPassword)) {
-      toast.success('Wow so easy !')
-    }
-    else{
-      toast.error("Do not match passwords")
+  const [form] = Form.useForm();
+  const savePerson = async (person) => {
+    try {
+      const result = await axios.post(
+        "http://localhost:5000/auth/register",
+        person,
+        {
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      );
+      toast.success(result.data.message);
+    } catch (err) {
+      toast.error(err.response.data.message);
     }
   };
+
+  const onFinish = async (values) => {
+    if (checkPassword(values.password, values.confirmPassword)) {
+      const person = {
+        fullname: values.fullname,
+        username: values.username,
+        email: values.email,
+        password: values.password,
+      };
+      await savePerson(person);
+      onReset();
+    } else {
+      toast.error("Do not match passwords");
+    }
+  };
+
+  const onReset = () => {
+    form.resetFields();
+  };
+
   const onFinishFailed = (errorInfo) => {
     const error = String(errorInfo.errorFields[0].errors[0]);
     toast.error(error);
   };
+
   return (
     <>
       <Form
@@ -33,6 +64,8 @@ function Register() {
         }}
         onFinish={onFinish}
         onFinishFailed={onFinishFailed}
+        resetFields={onReset}
+        form={form}
         autoComplete="off"
       >
         <Form.Item
@@ -43,22 +76,37 @@ function Register() {
               required: true,
               message: "Please input your name and surname!",
             },
+            { 
+              min: 5,
+              message: "Full Name must be at least 5 characters long"
+            },
+            { 
+              max: 40,
+              message: "Full Name cannot be longer than 40 characters"
+            },
           ]}
         >
           <Input placeholder="John Doe" />
         </Form.Item>
         <Form.Item
-          label="Age"
-          name="age"
+          label="Username"
+          name="username"
           rules={[
             {
-              type: "number",
               required: true,
-              message: "Please input your age!",
+              message: "Please input your username!",
+            },
+            {
+              min: 5,
+              message: "Username must be at least 5 characters long",
+            },
+            {
+              max: 18,
+              message: "Username cannot be longer than 18 characters",
             },
           ]}
         >
-          <InputNumber className="!w-full" min={18} max={99} placeholder="18" />
+          <Input placeholder="johndoe" />
         </Form.Item>
 
         <Form.Item
@@ -83,6 +131,14 @@ function Register() {
               required: true,
               message: "Please input your password!",
             },
+            {
+              min: 8,
+              message: "Password must be at least 8 characters long",
+            },
+            {
+              max: 25,
+              message: "Password cannot be longer than 25 characters",
+            },
           ]}
         >
           <Input.Password placeholder="Password" />
@@ -94,6 +150,14 @@ function Register() {
             {
               required: true,
               message: "Please input your password!",
+            },
+            {
+              min: 8,
+              message: "Password must be at least 8 characters long",
+            },
+            {
+              max: 25,
+              message: "Password cannot be longer than 25 characters",
             },
           ]}
         >
