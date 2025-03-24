@@ -1,6 +1,6 @@
 const bcrypt = require("bcrypt");
 const User = require("../models/User");
-const jwt = require('jsonwebtoken');
+const jwt = require("jsonwebtoken");
 
 exports.register = async (req, res) => {
   const { fullname, username, email, password } = req.body;
@@ -15,7 +15,7 @@ exports.register = async (req, res) => {
       fullname,
       username,
       email,
-      password
+      password,
     });
     await newUser.save();
     res
@@ -38,24 +38,24 @@ exports.login = async (req, res) => {
       res.status(400).json({ message: "Email & Password not correct" });
     }
 
-    const token = jwt.sign({ id: user._id, email, }, process.env.JWT_SECRET, {
-      expiresIn: '24h'
+    const token = jwt.sign({ id: user._id, email }, process.env.JWT_SECRET, {
+      expiresIn: "24h",
     });
 
-    res.cookie('token', token, {
+    res.cookie("token", token, {
       httpOnly: true,
       secure: false,
-      maxAge: 24 * 60 * 60 * 1000 
-    })
+      sameSite: "none",
+      maxAge: 24 * 60 * 60 * 1000,
+    });
     res.status(200).json({ message: "Logged in successfully", user, token });
-
   } catch (error) {
-    console.error("Error in login:", error);
-    res.status(500).json({ message: "Error logging in", error });
+    console.error("Error in login:", error.message);
+    res.status(500).json({ message: "Error logging in" });
   }
 };
 
 exports.logout = (req, res) => {
-  res.clearCookie('token');
-  res.status(200).json({ message: 'Logged out successfully' });
+  res.clearCookie("token");
+  res.status(200).json({ message: "Logged out successfully" });
 };

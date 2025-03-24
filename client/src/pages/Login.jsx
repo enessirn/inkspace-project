@@ -35,12 +35,13 @@ function Login() {
             }`}
             onClick={() => setSwitchBtn(false)}
           >
+            
             Register
           </button>
         </div>
 
         <div className="form mt-10 w-full ml-10 md:ml-0">
-          {switchBtn ? <Signin /> : <Register />}
+          {switchBtn ? <Signin setSwitchBtn={setSwitchBtn} /> : <Register setSwitchBtn={setSwitchBtn} />}
         </div>
       </div>
     </div>
