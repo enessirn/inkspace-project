@@ -1,9 +1,14 @@
 import React, { useState } from "react";
 import Signin from "../components/Login/Signin";
 import Register from "../components/Login/Register";
+
 function Login() {
   const [switchBtn, setSwitchBtn] = useState(true);
-
+  const storedLogin = localStorage.getItem("isLogin");
+  console.log("storedLogin", storedLogin);
+  if (storedLogin === "true") {
+    window.location.href = "/";
+  }
   return (
     <div
       className={`flex items-center flex-row border h-screen w-screen justify-center overflow-hidden bg-[url(https://images.pexels.com/photos/31232293/pexels-photo-31232293/free-photo-of-incil-deki-ibraniler-metninin-yakin-cekimi.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1)] bg-center bg-no-repeat bg-cover`}

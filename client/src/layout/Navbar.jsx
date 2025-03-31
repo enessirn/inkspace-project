@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useContext} from "react";
 import { Link } from "react-router-dom";
 import { Dropdown, Space, Button } from "antd";
 import {
@@ -7,12 +7,16 @@ import {
   UserOutlined,
 } from "@ant-design/icons";
 import logout from "../utils/logout";
+import GetMeContext from "../context/GetMeContext";
 function Navbar() {
+  const {me} = useContext(GetMeContext);
+  console.log("getMe", me);
   const storedLogin = localStorage.getItem("isLogin");
+
   const items = [
     {
       key: "0",
-      label: "Enes Şirin",
+      label: "Welcome back, " + me?.fullname,
       disabled: true,
     },
     {
@@ -61,7 +65,7 @@ function Navbar() {
                 <div className="profile-pic flex items-center justify-center cursor-pointer">
                   <img
                     className="w-8 h-8 rounded-full hover:shadow-sm"
-                    src="https://picsum.photos/200/300?random=1"
+                    src={me?.profilePicture}
                     alt="Profile Picture"
                   />
                 </div>
