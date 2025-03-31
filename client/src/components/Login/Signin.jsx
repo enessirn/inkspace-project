@@ -1,9 +1,12 @@
 import React, { useState } from "react";
-import { Button, Checkbox, Form, Input } from "antd";
+import { Button, Form, Input } from "antd";
 import { ToastContainer, toast } from "react-toastify";
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
+
 function Signin() {
   const [loading, setLoading] = useState(false);
+  const navigate = useNavigate();
   const loginPerson = async (person) => {
     setLoading(true);
     if (!person.email || !person.password) {
@@ -11,23 +14,22 @@ function Signin() {
       return;
     }
     try {
-      const res = await axios.post("http://localhost:5000/auth/login", person, {
-        headers: {
-          "Content-Type": "application/json",
-        },
-        withCredentials: true,
-      });
+      const res = await axios.post(
+        `${import.meta.env.VITE_SERVER_API_URL}/auth/login`,
+        person
+      );
       toast(
         `${res.data.user.fullname}, Welcome to InkSpace! You have successfully logged in. Redirecting you to the dashboard...`
       );
+      localStorage.setItem("isLogin", "true");
       setTimeout(() => {
-        setLoading(false)
-        window.location.href = "/";
+        setLoading(false);
+        navigate("/")
       }, 5000);
       onReset();
     } catch (err) {
       toast.error("Email or Password is incorrect", err.message);
-      setLoading(false)
+      setLoading(false);
     }
   };
 

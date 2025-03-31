@@ -1,20 +1,22 @@
 import "./index.css";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import Login from "./pages/Login"
+import Login from "./pages/Login";
 import Discovery from "./pages/Discovery";
+
+import { GetMeProvider } from "./context/GetMeContext";
 
 function App() {
   return (
     <>
-      <BrowserRouter>
-      <Routes>
-        <Route path="/" element={<Discovery />}></Route>
-        <Route path="/login" element={<Login />}></Route>
-      </Routes>
-      </BrowserRouter>
-    
+      <GetMeProvider>
+        <BrowserRouter>
+          <Routes>
+            <Route path="/" element={<Discovery />}></Route>
+            <Route path="/login" element={<Login />}></Route>
+          </Routes>
+        </BrowserRouter>
+      </GetMeProvider>
     </>
-
   );
 }
 
