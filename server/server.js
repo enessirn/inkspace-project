@@ -20,7 +20,7 @@ mongoose
   .then(() => console.log("Mongodb baglandş"))
   .catch((err) => console.log("Mongodb baglantisi basarisiz ", err));
 
-app.use("/auth", authRoutes);
+app.use("/api/auth", authRoutes);
 app.use("/api/posts", postRoutes);
 app.get("/", (req, res) => {
   res.send("Welcome to InkSpace");

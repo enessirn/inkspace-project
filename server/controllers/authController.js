@@ -42,15 +42,15 @@ exports.login = async (req, res) => {
       res.status(400).json({ message: "Email & Password not correct" });
     }
 
-    const token = jwt.sign({ id: user._id, email }, process.env.JWT_SECRET, {
-      expiresIn: "24h",
+    const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET, {
+      expiresIn: "7d",
     });
 
     res.cookie("token", token, {
       httpOnly: true,
       secure: false,
-      sameSite: "none",
-      maxAge: 24 * 60 * 60 * 1000,
+      sameSite: "lax",
+      maxAge: 168 * 60 * 60 * 1000,
     });
     console.log("TOKEN", token);
     res.status(200).json({ message: "Logged in successfully", user, token });
@@ -58,6 +58,13 @@ exports.login = async (req, res) => {
     console.error("Error in login:", error.message);
     res.status(500).json({ message: "Error logging in" });
   }
+};
+exports.getMe = async (req, res) => {
+  const user = await User.findById(req.user.id).select("-password");
+  if (!user) {
+    return res.status(404).json({ message: "User not found" });
+  }
+  res.status(200).json({ user });
 };
 
 exports.logout = (req, res) => {
