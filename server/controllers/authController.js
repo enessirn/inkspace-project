@@ -3,6 +3,9 @@ const User = require("../models/User");
 const jwt = require("jsonwebtoken");
 
 exports.register = async (req, res) => {
+  const getRandomNumber = () => {
+    return Math.floor(Math.random() * 2000);
+  };
   const { fullname, username, email, password } = req.body;
   console.log(req.body);
   try {
@@ -16,6 +19,7 @@ exports.register = async (req, res) => {
       username,
       email,
       password,
+      profilePicture: `https://picsum.photos/200/300?random=${getRandomNumber()}`,
     });
     await newUser.save();
     res
@@ -48,6 +52,7 @@ exports.login = async (req, res) => {
       sameSite: "none",
       maxAge: 24 * 60 * 60 * 1000,
     });
+    console.log("TOKEN", token);
     res.status(200).json({ message: "Logged in successfully", user, token });
   } catch (error) {
     console.error("Error in login:", error.message);
