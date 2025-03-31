@@ -4,7 +4,6 @@ import checkPassword from "../../utils/checkPassword";
 import { ToastContainer, toast } from "react-toastify";
 import axios from "axios";
 function Register({ setSwitchBtn }) {
-
   const [loading, setLoading] = useState(false);
   const [form] = Form.useForm();
   const savePerson = async (person) => {
@@ -19,13 +18,12 @@ function Register({ setSwitchBtn }) {
         toast.error("Please fill all the fields");
         return;
       }
-      await axios.post("http://localhost:5000/auth/register", person, {
-        headers: {
-          "Content-Type": "application/json",
-        },
-      });
+      const res = await axios.post(
+        `${import.meta.env.VITE_SERVER_API_URL}/auth/register`,
+        person
+      );
       toast(
-        `${person.fullname}, Welcome to InkSpace! Please login to continue.`
+        `${res.data.user.fullname}, Welcome to InkSpace! Please login to continue.`
       );
       setTimeout(() => {
         setSwitchBtn(true);
@@ -62,7 +60,6 @@ function Register({ setSwitchBtn }) {
   };
 
   return (
-    
     <>
       <Form
         name="basic"
