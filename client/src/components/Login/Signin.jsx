@@ -20,11 +20,14 @@ function Signin() {
       toast(
         `${res.data.user.fullname}, Welcome to InkSpace! You have successfully logged in. Redirecting you to the dashboard...`
       );
+      setTimeout(() => {
+        setLoading(false)
+        window.location.href = "/";
+      }, 5000);
       onReset();
     } catch (err) {
       toast.error("Email or Password is incorrect", err.message);
-    } finally {
-      setLoading(false);
+      setLoading(false)
     }
   };
 
@@ -71,7 +74,7 @@ function Signin() {
             },
           ]}
         >
-          <Input />
+          <Input placeholder="john@doe.com" disabled={loading} />
         </Form.Item>
 
         <Form.Item
@@ -92,7 +95,7 @@ function Signin() {
             },
           ]}
         >
-          <Input.Password />
+          <Input.Password placeholder="password" disabled={loading} />
         </Form.Item>
 
         <Form.Item label={null}>

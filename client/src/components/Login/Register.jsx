@@ -4,6 +4,7 @@ import checkPassword from "../../utils/checkPassword";
 import { ToastContainer, toast } from "react-toastify";
 import axios from "axios";
 function Register({ setSwitchBtn }) {
+
   const [loading, setLoading] = useState(false);
   const [form] = Form.useForm();
   const savePerson = async (person) => {
@@ -61,6 +62,7 @@ function Register({ setSwitchBtn }) {
   };
 
   return (
+    
     <>
       <Form
         name="basic"
@@ -100,7 +102,7 @@ function Register({ setSwitchBtn }) {
             },
           ]}
         >
-          <Input placeholder="John Doe" />
+          <Input placeholder="John Doe" disabled={loading} />
         </Form.Item>
         <Form.Item
           label="Username"
@@ -120,7 +122,7 @@ function Register({ setSwitchBtn }) {
             },
           ]}
         >
-          <Input placeholder="johndoe" />
+          <Input placeholder="johndoe" disabled={loading} />
         </Form.Item>
 
         <Form.Item
@@ -134,7 +136,7 @@ function Register({ setSwitchBtn }) {
             },
           ]}
         >
-          <Input placeholder="john@doe.com" />
+          <Input placeholder="john@doe.com" disabled={loading} />
         </Form.Item>
 
         <Form.Item
@@ -155,7 +157,7 @@ function Register({ setSwitchBtn }) {
             },
           ]}
         >
-          <Input.Password placeholder="Password" />
+          <Input.Password placeholder="Password" disabled={loading} />
         </Form.Item>
         <Form.Item
           label="Confirm Password"
@@ -175,7 +177,7 @@ function Register({ setSwitchBtn }) {
             },
           ]}
         >
-          <Input.Password placeholder="Confirm Password" />
+          <Input.Password placeholder="Confirm Password" disabled={loading} />
         </Form.Item>
         <Form.Item label={null}>
           <Button
