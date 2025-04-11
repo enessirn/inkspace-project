@@ -8,22 +8,20 @@ function Content() {
   const [posts, setPosts] = useState([])
   const [loading, setLoading] = useState(true)
   useEffect(() => {
-    setLoading(true)
-    try {
-      const getAllPosts = async () => {
-        const res = await axios.get(`${import.meta.env.VITE_SERVER_API_URL}/posts`)
-        setPosts(res.data)
+    const getData = async () => {
+      setLoading(true);
+      try {
+        const res = await axios.get(`${import.meta.env.VITE_SERVER_API_URL}/posts`);
+        setPosts(res.data);
+      } catch (error) {
+        toast.error("Error fetching posts", error.message);
+      } finally {
+        setLoading(false); 
       }
-      getAllPosts()
-    } catch (error) {
-      toast.error("Error fetching posts", error.message)
-    }
-    finally {
-      setTimeout(() => {
-        setLoading(false)
-      }, 2000)
-    }
-  }, [])
+    };
+  
+    getData();
+  }, []);
 
   useEffect(() => {
     if (posts.length > 0) {

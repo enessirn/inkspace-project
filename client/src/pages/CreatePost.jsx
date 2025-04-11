@@ -7,8 +7,6 @@ function CreatePost() {
     return (
         <div>
             <Navbar />
-
-
             <Editor />
         </div>
     );
