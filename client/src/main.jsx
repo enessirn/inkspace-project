@@ -4,9 +4,9 @@ import App from "./App.jsx";
 import { PrimeReactProvider } from "primereact/api";
 
 createRoot(document.getElementById("root")).render(
-  <StrictMode>
+  <>
     <PrimeReactProvider>
       <App />
     </PrimeReactProvider>
-  </StrictMode>
+  </>
 );

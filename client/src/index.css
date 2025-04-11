@@ -7,14 +7,90 @@
   --color-background: #FFFFFF;
   --color-primary: #242424;
   --color-secondary: #757575;
-  --color-link: #00AB6C;
-  --color-link-hover: #008f5a;
+  --color-link: #0066cc;
   --color-border: #E0E0E0;
 }
 
 * {
+  box-sizing: border-box;
   font-family: "Open Sans", sans-serif;
 }
+
+body {
+  background-color: #fff;
+  color: #242424;
+  line-height: 1.6;
+}
+
 .write-story:hover .fa-pen-to-square {
   color: var(--color-primary)
+}
+
+h1 {
+  display: block;
+  font-size: 2em;
+
+  font-weight: bold;
+}
+
+h2 {
+  display: block;
+  font-size: 1.5em;
+
+
+  font-weight: bold;
+}
+
+h3 {
+  display: block;
+  font-size: 1.17em;
+
+  font-weight: bold;
+}
+
+h4 {
+  display: block;
+  font-weight: bold;
+}
+
+h5 {
+  display: block;
+  font-size: .83em;
+  font-weight: bold;
+}
+
+h6 {
+  display: block;
+  font-size: .67em;
+  font-weight: bold;
+}
+
+li,
+ul {
+  margin-top: 0.5em;
+  margin-bottom: 0.5em;
+  margin-left: 0;
+  list-style-type: disc;
+  margin-right: 0;
+}
+ol li{
+  list-style-type: decimal;
+
+}
+a {
+  color: var(--color-link);
+  text-decoration:  none ;
+  transition: all 0.2s ease-in-out;
+}
+.ql-align-right {
+  text-align: right;
+}
+.ql-align-center {
+  text-align: center;
+}
+.ql-align-justify {
+  text-align: justify;
+}
+.ql-align-left {
+  text-align: left;
 }

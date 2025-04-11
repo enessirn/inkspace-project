@@ -1,7 +1,8 @@
-import React,{useState, useEffect} from 'react'
+import React, { useState, useEffect } from 'react'
 import PostCard from '../components/PostCard'
 import { ToastContainer, toast } from "react-toastify";
 import axios from 'axios';
+import Loading from '../components/Loading'
 axios.defaults.withCredentials = true;
 function Content() {
   const [posts, setPosts] = useState([])
@@ -18,7 +19,9 @@ function Content() {
       toast.error("Error fetching posts", error.message)
     }
     finally {
-      setLoading(false)
+      setTimeout(() => {
+        setLoading(false)
+      }, 2000)
     }
   }, [])
 
@@ -29,13 +32,11 @@ function Content() {
   }, [posts])
 
   return (
-    <div className='w-full md:container md:mx-auto h-full bg-background mt-8'> 
-      <div className="mx-auto py-4 flex flex-col justify-center items-center gap-4"> 
-        {loading ? "loading" : ""}
-        {
-          posts?.map((post) => (
-            <PostCard key={post._id} post={post} />
-          ))
+    <div className='w-full md:container md:mx-auto h-full bg-background mt-8'>
+      <div className="mx-auto py-4 flex flex-col justify-center items-center gap-4">
+        {loading ? <Loading /> : posts?.map((post) => (
+          <PostCard key={post._id} post={post} />
+        ))
         }
       </div>
       <ToastContainer />
