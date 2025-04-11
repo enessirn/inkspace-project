@@ -1,6 +1,5 @@
 const mongoose = require("mongoose");
 const bcrypt = require("bcrypt");
-
 const UserSchema = new mongoose.Schema(
   {
     profilePicture: {
@@ -30,6 +29,13 @@ const UserSchema = new mongoose.Schema(
       default: "user",
       enum: ["user", "admin"],
     },
+    posts: [
+      {
+        post_id: { type: mongoose.Schema.Types.ObjectId, ref: 'Posts' },
+        title: String,
+        content: String
+      },
+    ],
   },
   {
     timestamps: true,

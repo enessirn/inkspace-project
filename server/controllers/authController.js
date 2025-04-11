@@ -20,6 +20,7 @@ exports.register = async (req, res) => {
       email,
       password,
       profilePicture: `https://picsum.photos/200/300?random=${getRandomNumber()}`,
+      posts: [],
     });
     await newUser.save();
     res

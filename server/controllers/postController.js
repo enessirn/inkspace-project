@@ -1,4 +1,5 @@
 const Post = require("../models/Posts");
+const User = require("../models/User");
 
 exports.createPost = async (req, res) => {
   try {
@@ -13,9 +14,16 @@ exports.createPost = async (req, res) => {
       content,
       author: req.user.id,
     });
+    // adding post to user as array
+    await User.findByIdAndUpdate(req.user.id, {
+      $push: { posts: [{
+        title: req.body.title,
+        content: req.body.content, 
+      }]  },
+    });
     await newPost.save();
     console.log("New Post Created:", newPost);
-    res.status(201).json(newPost);
+    res.status(200).json(newPost);
   } catch (error) {
     res.status(500).json({ error: "Failed to create post" });
     console.log("Error creating post:", error);
