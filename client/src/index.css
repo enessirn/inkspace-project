@@ -65,15 +65,10 @@ h6 {
   font-weight: bold;
 }
 
-li,
 ul {
-  margin-top: 0.5em;
-  margin-bottom: 0.5em;
-  margin-left: 0;
   list-style-type: disc;
-  margin-right: 0;
 }
-ol li{
+ol{
   list-style-type: decimal;
 
 }
