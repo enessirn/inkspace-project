@@ -33,7 +33,14 @@ const UserSchema = new mongoose.Schema(
       {
         post_id: { type: mongoose.Schema.Types.ObjectId, ref: 'Posts' },
         title: String,
-        content: String
+        content: String,
+        createdAt: {
+          type: Date,
+        },
+        updatedAt: {
+          type: Date,
+        },
+
       },
     ],
   },

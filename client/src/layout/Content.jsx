@@ -13,10 +13,10 @@ function Content() {
       try {
         const res = await axios.get(`${import.meta.env.VITE_SERVER_API_URL}/posts`);
         setPosts(res.data);
+        setLoading(false);
       } catch (error) {
-        toast.error("Error fetching posts", error.message);
-      } finally {
-        setLoading(false); 
+        toast.error("Error fetching posts, please try again later", error.message);
+          setLoading(true);
       }
     };
   
@@ -32,7 +32,8 @@ function Content() {
   return (
     <div className='w-full md:container md:mx-auto h-full bg-background mt-8'>
       <div className="mx-auto py-4 flex flex-col justify-center items-center gap-4">
-        {loading ? <Loading /> : posts?.map((post) => (
+    <h1 className='block w-1/2 text-center border-b-2 border-gray-300'>Discovery</h1>
+        {loading ? <Loading /> : posts?.reverse().map((post) => (
           <PostCard key={post._id} post={post} />
         ))
         }

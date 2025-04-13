@@ -26,7 +26,7 @@ function Signin() {
       setTimeout(() => {
         setLoading(false);
         navigate("/")
-      }, 5000);
+      }, 2000);
       onReset();
     } catch (err) {
       toast.error("Email or Password is incorrect", err.message);
