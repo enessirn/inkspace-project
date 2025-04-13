@@ -55,18 +55,42 @@ export default function Editor() {
     setIsModalOpen(false);
     try {
       if (!title || !content) {
-        toast.error("Please fill all fields");
+        toast.error("Please fill all fields", {
+          position: "bottom-right",
+          autoClose: 2000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: false,
+          draggable: true,
+          progress: undefined,
+      });
         return;
       }
       const response = await axios.post(`${import.meta.env.VITE_SERVER_API_URL}/posts/create-post`, {
         title, content
       });
       if (response.status === 200) {
-        toast.success("Post created successfully");
+        toast.success("Post created successfully", {
+          position: "bottom-right",
+          autoClose: 2000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: false,
+          draggable: true,
+          progress: undefined,
+      });
       }
     } catch (error) {
       console.error("Error creating post:", error);
-      toast.error("Error creating post, please try again later");
+      toast.error("Error creating post, please try again later", {
+        position: "bottom-right",
+        autoClose: 2000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: false,
+        draggable: true,
+        progress: undefined,
+    });
     } finally {
       setLoading(false);
     }

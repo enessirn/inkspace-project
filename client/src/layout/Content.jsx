@@ -15,7 +15,15 @@ function Content() {
         setPosts(res.data);
         setLoading(false);
       } catch (error) {
-        toast.error("Error fetching posts, please try again later", error.message);
+        toast.error("Error fetching posts, please try again later", error.message, {
+          position: "bottom-right",
+          autoClose: 2000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: false,
+          draggable: true,
+          progress: undefined,
+      });
           setLoading(true);
       }
     };

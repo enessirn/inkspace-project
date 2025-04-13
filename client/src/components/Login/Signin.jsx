@@ -11,7 +11,15 @@ function Signin() {
     console.log(person);
     setLoading(true);
     if (!person.email || !person.password) {
-      toast.error("Please fill all the fields");
+      toast.error("Please fill all the fields", {
+        position: "bottom-right",
+        autoClose: 2000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: false,
+        draggable: true,
+        progress: undefined,
+    });
       return;
     }
     try {
@@ -29,7 +37,15 @@ function Signin() {
       }, 2000);
       onReset();
     } catch (err) {
-      toast.error("Email or Password is incorrect", err.message);
+      toast.error("Email or Password is incorrect", err.message, {
+        position: "bottom-right",
+        autoClose: 2000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: false,
+        draggable: true,
+        progress: undefined,
+    });
       console.log(err)
       setLoading(false);
     }
@@ -40,7 +56,15 @@ function Signin() {
     await loginPerson(values);
   };
   const onFinishFailed = (errorInfo) => {
-    toast.error("Failed:", errorInfo);
+    toast.error("Failed:", errorInfo, {
+      position: "bottom-right",
+      autoClose: 2000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: false,
+      draggable: true,
+      progress: undefined,
+  });
   };
   const onReset = () => {
     form.resetFields();

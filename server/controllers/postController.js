@@ -52,7 +52,7 @@ exports.deletePost = async (req, res) => {
   try {
     const id = req.params.id;
     // 67fab0b9d1da6e371c248b37
-    
+
     const post = await Post.findByIdAndDelete(id);
     if (!post) {
       return res.status(404).json({ message: "Post not found" });
@@ -66,6 +66,7 @@ exports.deletePost = async (req, res) => {
         },
       },
     });
+    console.log("Post deleted successfully:", post);
   } catch (error) {
     console.error("Error deleting post:", error);
     res.status(500).json({ error: "Failed to delete post" });

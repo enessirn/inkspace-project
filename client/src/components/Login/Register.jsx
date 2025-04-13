@@ -15,7 +15,15 @@ function Register({ setSwitchBtn }) {
         !person.email ||
         !person.password
       ) {
-        toast.error("Please fill all the fields");
+        toast.error("Please fill all the fields", {
+          position: "bottom-right",
+          autoClose: 2000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: false,
+          draggable: true,
+          progress: undefined,
+      });
         return;
       }
       const res = await axios.post(
@@ -29,7 +37,15 @@ function Register({ setSwitchBtn }) {
         setSwitchBtn(true);
       }, 3000);
     } catch (err) {
-      toast.error(err);
+      toast.error(err, {
+        position: "bottom-right",
+        autoClose: 2000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: false,
+        draggable: true,
+        progress: undefined,
+    });
     } finally {
       setLoading(false);
     }
@@ -46,7 +62,15 @@ function Register({ setSwitchBtn }) {
       await savePerson(person);
       onReset();
     } else {
-      toast.error("Do not match passwords");
+      toast.error("Do not match passwords", {
+        position: "bottom-right",
+        autoClose: 2000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: false,
+        draggable: true,
+        progress: undefined,
+    });
     }
   };
 
@@ -56,7 +80,15 @@ function Register({ setSwitchBtn }) {
 
   const onFinishFailed = (errorInfo) => {
     const error = String(errorInfo.errorFields[0].errors[0]);
-    toast.error(error);
+    toast.error(error, {
+      position: "bottom-right",
+      autoClose: 2000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: false,
+      draggable: true,
+      progress: undefined,
+  });
   };
 
   return (
