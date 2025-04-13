@@ -2,8 +2,6 @@ import React, { useContext } from "react";
 import Navbar from './../layout/Navbar';
 import GetMeContext from "../context/GetMeContext"
 import { Skeleton } from "antd";
-import MyPosts from "../components/MyPosts";
-import Loading from "../components/Loading";
 function Profile() {
     const { me, loading } = useContext(GetMeContext);
     return (
@@ -29,20 +27,6 @@ function Profile() {
 
             <div id='posts' className="w-full flex flex-col gap-6 mt-8 p-8">
                 <h1 className='border-b border-gray-300'>Your Posts</h1>
-
-                {
-                    !loading ? (
-                        me?.posts?.reverse().map((post) => {
-                            return (
-                                <MyPosts key={post._id} post={post} profilePicture={me.profilePicture} />
-                            )
-                        })
-                    ) : <Loading />
-                }
-
-
-                
-                
             </div>
         </>
     )

@@ -31,7 +31,6 @@ const UserSchema = new mongoose.Schema(
     },
     posts: [
       {
-        post_id: { type: mongoose.Schema.Types.ObjectId, ref: 'Posts' },
         title: String,
         content: String,
         createdAt: {

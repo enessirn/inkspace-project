@@ -16,10 +16,13 @@ exports.createPost = async (req, res) => {
     });
     // adding post to user as array
     await User.findByIdAndUpdate(req.user.id, {
-      $push: { posts: [{
-        title: req.body.title,
-        content: req.body.content, 
-      }]  },
+      $push: {
+        posts: [{
+          _id: newPost._id,
+          title: req.body.title,
+          content: req.body.content,
+        }]
+      },
     });
     await newPost.save();
     console.log("New Post Created:", newPost);
@@ -33,7 +36,7 @@ exports.createPost = async (req, res) => {
 exports.getAllPosts = async (req, res) => {
   try {
     const posts = await Post.find()
-    .populate("author", "username fullname email profilePicture");
+      .populate("author", "username fullname email profilePicture");
     if (!posts) {
       return res.status(404).json({ message: "No posts found" });
     }
@@ -43,3 +46,28 @@ exports.getAllPosts = async (req, res) => {
     res.status(500).json({ error: "Failed to fetch posts" });
   }
 };
+
+exports.deletePost = async (req, res) => {
+  console.log("Post ID to delete:", req.params.id);
+  try {
+    const id = req.params.id;
+    // 67fab0b9d1da6e371c248b37
+    
+    const post = await Post.findByIdAndDelete(id);
+    if (!post) {
+      return res.status(404).json({ message: "Post not found" });
+    }
+
+    // remove post from user as array
+    await User.findByIdAndUpdate(req.user.id, {
+      $pull: {
+        posts: {
+          _id: id,
+        },
+      },
+    });
+  } catch (error) {
+    console.error("Error deleting post:", error);
+    res.status(500).json({ error: "Failed to delete post" });
+  }
+}
