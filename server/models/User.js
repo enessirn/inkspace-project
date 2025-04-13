@@ -33,13 +33,9 @@ const UserSchema = new mongoose.Schema(
       {
         title: String,
         content: String,
-        createdAt: {
-          type: Date,
-        },
-        updatedAt: {
-          type: Date,
-        },
-
+        likes: Number,
+        createdAt: Date,
+        updatedAt:Date,
       },
     ],
   },

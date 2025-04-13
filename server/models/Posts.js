@@ -8,6 +8,18 @@ const postSchema = new mongoose.Schema(
       ref: "User",
       required: true,
     },
+    createdAt: {
+      type: Date,
+      default: Date.now,
+    },
+    updatedAt: {
+      type: Date,
+      default: Date.now,
+    },
+    likes: {
+      type: Number,
+      default: 0,
+    },
   },
   { timestamps: true }
 );
