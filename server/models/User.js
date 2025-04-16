@@ -30,13 +30,10 @@ const UserSchema = new mongoose.Schema(
       enum: ["user", "admin"],
     },
     posts: [
-      {
-        title: String,
-        content: String,
-        likes: Number,
-        createdAt: Date,
-        updatedAt:Date,
-      },
+     {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "Post"
+     }
     ],
   },
   {

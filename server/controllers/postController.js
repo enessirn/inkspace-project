@@ -14,17 +14,12 @@ exports.createPost = async (req, res) => {
       content,
       author: req.user.id,
     });
+    await newPost.save();
     // adding post to user as array
     await User.findByIdAndUpdate(req.user.id, {
-      $push: {
-        posts: [{
-          _id: newPost._id,
-          title: req.body.title,
-          content: req.body.content,
-        }]
-      },
+      $push: { posts: newPost._id }
     });
-    await newPost.save();
+
     console.log("New Post Created:", newPost);
     res.status(200).json(newPost);
   } catch (error) {
