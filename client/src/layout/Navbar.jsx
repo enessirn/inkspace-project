@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { Dropdown, Space, Button, Skeleton } from "antd";
 import {
@@ -6,13 +6,32 @@ import {
   UserOutlined,
 } from "@ant-design/icons";
 import logout from "../utils/logout";
-import GetMeContext from "../context/GetMeContext"
+import axios from "axios";
+axios.defaults.withCredentials = true;
 function Navbar() {
-
-  const { me, loading } = useContext(GetMeContext);
-  console.log("getMe", me);
+  const [me, setMe] = useState(null);
   const storedLogin = localStorage.getItem("isLogin");
-  const navigate = useNavigate(); 
+  const [loading, setLoading] = useState(true);
+  useEffect(() => {
+    if (!storedLogin) {
+      window.location.href = "/login";
+    }
+    const getMe = async () => {
+      try {
+        const response = await axios.get(`${import.meta.env.VITE_SERVER_API_URL}/auth/me`);
+        if (response.status === 200) {
+          setMe(response.data.user);
+          setLoading(false);
+        }
+      } catch (error) {
+        console.error("Error fetching user data:", error.message);
+        localStorage.removeItem("isLogin");
+      }
+    }
+    getMe();
+
+  }, [])
+  const navigate = useNavigate();
   const items = [
     {
       key: "0",

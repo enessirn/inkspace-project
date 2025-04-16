@@ -23,7 +23,7 @@ function PostCardFull({ pfp, post, setDeleteId }) {
     }
 
     return (
-        <div className=" cursor-pointer mx-auto transition-all ease-in-out bg-background shadow-sm shadow-primary/45 hover:shadow-md hover:bg-primary/1 w-[90%] p-2 rounded-2xl xl:w-1/2 h-full border-b border-gray-300">
+        <div className=" cursor-pointer mx-auto transition-all ease-in-out bg-background shadow-sm shadow-primary/45 hover:shadow-md hover:bg-primary/1 w-[90%] p-2 rounded-2xl xl:w-1/2 h-full border-b border-gray-300" style={{wordWrap: 'break-word'}}>
 
             <div className="px-2 py-4">
                 <div className="auth mb-4 flex justify-between flex-row items-center">
@@ -45,7 +45,7 @@ function PostCardFull({ pfp, post, setDeleteId }) {
                 <h1 className="header w-full text-xl lg:text-2xl font-bold !font-display">
                     {post.title}
                 </h1>
-                <div className="title max-w-full mt-2 p-2 w-full" dangerouslySetInnerHTML={{ __html: post.content }} >
+                <div className="title mt-2 p-2 w-full" dangerouslySetInnerHTML={{ __html: post.content }} >
                 </div>
 
                 <div id="actions" className="flex justify-between items-center mt-4">

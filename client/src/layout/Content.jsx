@@ -15,7 +15,7 @@ function Content() {
         setPosts(res.data);
         setLoading(false);
       } catch (error) {
-        toast.error("Error fetching posts, please try again later", error.message, {
+        toast.error("Error, please try again later", error.message, {
           position: "bottom-right",
           autoClose: 2000,
           hideProgressBar: false,
@@ -23,28 +23,28 @@ function Content() {
           pauseOnHover: false,
           draggable: true,
           progress: undefined,
-      });
-          setLoading(true);
+        });
+        setLoading(true);
       }
     };
-  
+
     getData();
   }, []);
-
-  useEffect(() => {
-    if (posts.length > 0) {
-      console.log("Posts:", posts)
-    }
-  }, [posts])
 
   return (
     <div className='w-full md:container md:mx-auto h-full bg-background mt-8'>
       <div className="mx-auto py-4 flex flex-col justify-center items-center gap-4">
-    <h1 className='block w-1/2 text-center border-b-2 border-gray-300'>Discovery</h1>
-        {loading ? <Loading /> : posts?.reverse().map((post) => (
+        <h1 className='block w-1/2 text-center border-b-2 border-gray-300'>Discovery</h1>
+        {loading ? <Loading /> : posts.length !== 0 ? posts?.reverse().map((post) => (
           <PostCard key={post._id} post={post} />
-        ))
-        }
+
+        )) : (
+          <div className='w-full flex flex-col justify-center items-center gap-4 mt-4'>
+            <h1 className='text-muted text-2xl'>No posts found</h1>
+            <p className='text-muted text-md'>Be the first to post something!</p>
+          </div>
+        )}
+
       </div>
       <ToastContainer />
     </div>

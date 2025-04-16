@@ -1,19 +1,46 @@
-import React, { useContext, useEffect, useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import PostCardFull from '../components/PostCardFull'
-import GetMeContext from '../context/GetMeContext';
+import axios from 'axios';
+axios.defaults.withCredentials = true;
 import { ToastContainer, toast } from "react-toastify";
+import Loading from '../components/Loading';
 function MyPost() {
-    const { me } = useContext(GetMeContext);
+    const [me, setMe] = useState(null);
     const [posts, setPosts] = useState([]);
     const [deleteId, setDeleteId] = useState(null);
-    console.log("Me", me);
+    const [loading, setLoading] = useState(true)
 
     useEffect(() => {
-        if (me?.posts) {
-            setPosts(me.posts);
-        }
-        console.log("Posts", posts);
-    }, [me])
+        const getData = async () => {
+            setLoading(true);
+            const storedLogin = localStorage.getItem("isLogin");
+            if (!storedLogin) {
+                alert("Please, sign in");
+                window.location.href = "/login";
+            }
+            try {
+                const res = await axios.get(`${import.meta.env.VITE_SERVER_API_URL}/auth/me`);
+                console.log(res, "eneseenesenesenesenesenes")
+                setMe(res.data.user);
+                setPosts(res.data.user.posts);
+                setLoading(false);
+            } catch (error) {
+                toast.error("Error fetching posts", error.message, {
+                    position: "bottom-right",
+                    autoClose: 2000,
+                    hideProgressBar: false,
+                    closeOnClick: true,
+                    pauseOnHover: false,
+                    draggable: true,
+                    progress: undefined,
+                });
+                setLoading(true);
+            }
+        };
+
+        getData();
+    }
+        , []);
 
     useEffect(() => {
         const updatedPosts = posts.filter((post) => post._id !== deleteId);
@@ -36,9 +63,14 @@ function MyPost() {
     return (
         <div className='w-full flex flex-col gap-6 mt-8 p-8'>
             {
-                posts?.map((post) => (
+                loading ? <Loading /> : posts.length !== 0 ? posts.reverse().map((post) => (
                     <PostCardFull key={post._id} pfp={me.profilePicture} post={post} setDeleteId={setDeleteId} />
-                ))
+                )) : (
+                    <div className='w-full flex flex-col justify-center items-center gap-4 mt-4 overflow-x-hidden'>
+                        <h1 className='text-muted text-2xl'>No posts found</h1>
+                        <p className='text-muted text-md'>Be the first to post something!</p>
+                    </div>
+                )
             }
 
             <ToastContainer />
