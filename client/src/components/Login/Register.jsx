@@ -31,11 +31,11 @@ function Register({ setSwitchBtn }) {
         person
       );
       toast(
-        `${res.data.user.fullname}, Welcome to InkSpace! Please login to continue.`
+        `${res.data.user.fullname}, Welcome to InkSpace!`
       );
       setTimeout(() => {
         setSwitchBtn(true);
-      }, 3000);
+      }, 1500);
     } catch (err) {
       toast.error(err, {
         position: "bottom-right",
