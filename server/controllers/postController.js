@@ -31,7 +31,7 @@ exports.createPost = async (req, res) => {
 exports.getAllPosts = async (req, res) => {
   try {
     const posts = await Post.find()
-      .populate("author", "username fullname email profilePicture");
+      .populate("author", "username fullname email profilePicture")
     if (!posts) {
       return res.status(404).json({ message: "No posts found" });
     }
@@ -41,6 +41,37 @@ exports.getAllPosts = async (req, res) => {
     res.status(500).json({ error: "Failed to fetch posts" });
   }
 };
+// like/unlike the post
+
+exports.likePost = async (req, res) => {
+  try {
+    const { postId } = req.params;
+    const userId = req.user.id;
+    console.log("post id:" + postId + " userid: " + userId)
+    const post = await Post.findById(postId);
+    console.log("likepost", post)
+    if (!post)
+      return res.status(404).json({ message: "Post not found!" });
+
+    const alreadyLiked = post.likes.some(id => id.toString() === userId);
+    if (alreadyLiked) {
+      post.likes = post.likes.filter(id => id.toString() !== userId);
+      if (post.likesCount > 0) post.likesCount -= 1;
+      await post.save();
+      return res.status(200).json({ message: "Post unliked", likeCount: post.likeCount });
+    }
+
+    post.likes.push(userId);
+    post.likesCount += 1;
+    await post.save();
+    return res.status(200).json({ message: "Post liked", likeCount: post.likeCount });
+
+  } catch (error) {
+    console.error("Error liking post:", error);
+    res.status(500).json({ message: "Error liking post" });
+  }
+}
+
 
 exports.deletePost = async (req, res) => {
   console.log("Post ID to delete:", req.params.id);
