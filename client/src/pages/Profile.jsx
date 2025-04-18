@@ -59,7 +59,7 @@ function Profile() {
             <div id='posts' className="w-full flex flex-col gap-6 mt-8 p-8">
                 <h1 className='border-b border-gray-300'>Your Posts</h1>
 
-                <MyPost />
+                <MyPost  />
             </div>
         </div>
     )

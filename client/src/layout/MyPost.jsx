@@ -64,7 +64,7 @@ function MyPost() {
         <div className='w-full flex flex-col gap-6 mt-8 p-8'>
             {
                 loading ? <Loading /> : posts.length !== 0 ? posts.reverse().map((post) => (
-                    <PostCardFull key={post._id} pfp={me.profilePicture} post={post} setDeleteId={setDeleteId} />
+                    <PostCardFull key={post._id} me={me} isProfile={true} post={post} setDeleteId={setDeleteId} />
                 )) : (
                     <div className='w-full flex flex-col justify-center items-center gap-4 mt-4 overflow-x-hidden'>
                         <h1 className='text-muted text-2xl'>No posts found</h1>
