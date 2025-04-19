@@ -36,12 +36,8 @@ exports.getAllPosts = async (req, res) => {
           select: "username profilePicture"
         }
       });
-
-    if (!posts || posts.length === 0) {
-      return res.status(404).json({ message: "No posts found" });
-    }
-
     res.status(200).json(posts);
+    
   } catch (error) {
     console.error("Error fetching posts:", error);
     res.status(500).json({ error: "Failed to fetch posts" });
