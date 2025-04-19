@@ -2,6 +2,7 @@ const express = require("express");
 const mongoose = require("mongoose");
 const dotenv = require("dotenv");
 dotenv.config();
+const path = require("path");
 const cors = require("cors");
 const authRoutes = require("./routes/authRoutes");
 const postRoutes = require("./routes/postRoutes");
@@ -26,6 +27,12 @@ app.use("/api/posts", postRoutes);
 app.use("/api/comments", commentRoutes);
 app.get("/", (req, res) => {
   res.send("Welcome to InkSpace");
+});
+app.use(express.static(path.join(__dirname, "../client/build")));
+
+// 🔁 React Router için fallback (önemli kısım burası)
+app.get("*", (req, res) => {
+  res.sendFile(path.resolve(__dirname, "../client/build", "index.html"));
 });
 
 const PORT = process.env.PORT || 5000;
