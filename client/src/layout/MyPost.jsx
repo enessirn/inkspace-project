@@ -20,7 +20,6 @@ function MyPost() {
             }
             try {
                 const res = await axios.get(`${import.meta.env.VITE_SERVER_API_URL}/auth/me`);
-                console.log(res, "eneseenesenesenesenesenes")
                 setMe(res.data.user);
                 setPosts(res.data.user.posts);
                 setLoading(false);

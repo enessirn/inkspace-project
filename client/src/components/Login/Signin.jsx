@@ -8,7 +8,6 @@ function Signin() {
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
   const loginPerson = async (person) => {
-    console.log(person);
     setLoading(true);
     if (!person.email || !person.password) {
       toast.error("Please fill all the fields", {

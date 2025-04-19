@@ -8,7 +8,6 @@ exports.createPost = async (req, res) => {
     if (!req.user) {
       return res.status(401).json({ message: "Unauthorized" });
     }
-    console.log("User ID:", req.user.id);
     const newPost = new Post({
       title,
       content,
@@ -19,8 +18,6 @@ exports.createPost = async (req, res) => {
     await User.findByIdAndUpdate(req.user.id, {
       $push: { posts: newPost._id }
     });
-
-    console.log("New Post Created:", newPost);
     res.status(200).json(newPost);
   } catch (error) {
     res.status(500).json({ error: "Failed to create post" });
@@ -57,9 +54,7 @@ exports.likePost = async (req, res) => {
   try {
     const { postId } = req.params;
     const userId = req.user.id;
-    console.log("post id:" + postId + " userid: " + userId);
-    const post = await Post.findById(postId);
-    console.log("likepost", post);
+    const post = await Post.findById(postId);;
     if (!post)
       return res.status(404).json({ message: "Post not found!" });
 
@@ -83,7 +78,6 @@ exports.likePost = async (req, res) => {
 }
 
 exports.deletePost = async (req, res) => {
-  console.log("Post ID to delete:", req.params.id);
   try {
     const id = req.params.id;
 

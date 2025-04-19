@@ -13,7 +13,6 @@ function PostCardFull({ me, post, setDeleteId, isProfile, loading }) {
     const [text, setText] = useState("")
     const [comments, setComments] = useState(post?.comments);
     const handleDelete = async () => {
-        console.log("Post ID", post._id);
         try {
             fetch(`${import.meta.env.VITE_SERVER_API_URL}/posts/delete-post/${post._id}`, {
                 method: 'DELETE',
@@ -62,7 +61,6 @@ function PostCardFull({ me, post, setDeleteId, isProfile, loading }) {
         try {
             e.preventDefault();
             setDisabled(true);
-            console.log(post._id + "psot idsi");
             await axios.post(`${import.meta.env.VITE_SERVER_API_URL}/comments/add-comment/${post._id}`, {
                 text
             });
@@ -83,9 +81,6 @@ function PostCardFull({ me, post, setDeleteId, isProfile, loading }) {
             setText("");
         }
     }
-    useEffect(() => {
-        console.log("güncel yorumlar", comments)
-    }, [disabled])
     return (
         <div className="border border-border cursor-pointer mx-auto transition-all ease-in-out bg-card-background dark:bg-card-d-background shadow-sm shadow-primary/45 dark:border-d-border dark:hover:bg-card-d-background/80 hover:shadow-md hover:bg-primary/1 w-[90%] p-2 rounded-2xl xl:w-1/2 h-full " style={{ wordWrap: 'break-word' }}>
 

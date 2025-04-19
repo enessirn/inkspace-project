@@ -5,7 +5,6 @@ import Register from "../components/Login/Register";
 function Login() {
   const [switchBtn, setSwitchBtn] = useState(true);
   const storedLogin = localStorage.getItem("isLogin");
-  console.log("storedLogin", storedLogin);
   if (storedLogin === "true") {
     window.location.href = "/";
   }

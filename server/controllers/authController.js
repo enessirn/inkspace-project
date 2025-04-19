@@ -7,7 +7,6 @@ exports.register = async (req, res) => {
     return Math.floor(Math.random() * 2000);
   };
   const { fullname, username, email, password } = req.body;
-  console.log(req.body);
   try {
     const existingUser = await User.findOne({ email });
 
@@ -53,7 +52,6 @@ exports.login = async (req, res) => {
       sameSite: "lax",
       maxAge: 168 * 60 * 60 * 1000,
     });
-    console.log("TOKEN", token);
     res.status(200).json({ message: "Logged in successfully", user, token });
   } catch (error) {
     console.error("Error in login:", error.message);
