@@ -1,5 +1,5 @@
 import "./index.css";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Login from "./pages/Login";
 import Discovery from "./pages/Discovery";
 import CreatePost from "./pages/CreatePost";
@@ -15,7 +15,7 @@ const [theme,setTheme] = useState(false);
   return (
     <div className={`${theme ? "dark" : ""}`}>
 
-      <BrowserRouter>
+      <Router>
         <Routes>
           <Route path="/" element={<Discovery />}></Route>
           <Route path="/login" element={<Login />}></Route>
@@ -23,7 +23,7 @@ const [theme,setTheme] = useState(false);
           <Route path="/profile" element={<Profile />}></Route>
           <Route path="*" element={<UnknownPage />}></Route>
         </Routes>
-      </BrowserRouter>
+      </Router>
     </div>
   );
 }
