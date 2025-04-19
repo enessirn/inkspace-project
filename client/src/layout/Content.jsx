@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react'
-import PostCard from '../components/PostCard'
 import { ToastContainer, toast } from "react-toastify";
 import axios from 'axios';
 import Loading from '../components/Loading'
@@ -23,6 +22,7 @@ function Content() {
       try {
         const res = await axios.get(`${import.meta.env.VITE_SERVER_API_URL}/posts`);
         setPosts(res.data);
+        console.log("all posts",res.data)
         const resultMe = await axios.get(`${import.meta.env.VITE_SERVER_API_URL}/auth/me`);
         setMe(resultMe.data.user);
         setLoading(false);

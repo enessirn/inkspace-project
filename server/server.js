@@ -5,6 +5,7 @@ dotenv.config();
 const cors = require("cors");
 const authRoutes = require("./routes/authRoutes");
 const postRoutes = require("./routes/postRoutes");
+const commentRoutes = require("./routes/commentRoutes")
 const cookieParser = require('cookie-parser');
 const app = express();
 app.use(cookieParser());
@@ -22,6 +23,7 @@ mongoose
 
 app.use("/api/auth", authRoutes);
 app.use("/api/posts", postRoutes);
+app.use("/api/comments", commentRoutes);
 app.get("/", (req, res) => {
   res.send("Welcome to InkSpace");
 });

@@ -15,7 +15,7 @@ exports.createPost = async (req, res) => {
       author: req.user.id,
     });
     await newPost.save();
-    // adding post to user as array
+
     await User.findByIdAndUpdate(req.user.id, {
       $push: { posts: newPost._id }
     });
@@ -32,24 +32,34 @@ exports.getAllPosts = async (req, res) => {
   try {
     const posts = await Post.find()
       .populate("author", "username fullname email profilePicture")
-    if (!posts) {
+      .populate({
+        path: "comments",
+        populate: {
+          path: "author",
+          select: "username profilePicture"
+        }
+      });
+
+    if (!posts || posts.length === 0) {
       return res.status(404).json({ message: "No posts found" });
     }
-    console.log("Fetched Posts:", posts);
+
     res.status(200).json(posts);
   } catch (error) {
+    console.error("Error fetching posts:", error);
     res.status(500).json({ error: "Failed to fetch posts" });
   }
 };
-// like/unlike the post
 
+
+// like/unlike the post
 exports.likePost = async (req, res) => {
   try {
     const { postId } = req.params;
     const userId = req.user.id;
-    console.log("post id:" + postId + " userid: " + userId)
+    console.log("post id:" + postId + " userid: " + userId);
     const post = await Post.findById(postId);
-    console.log("likepost", post)
+    console.log("likepost", post);
     if (!post)
       return res.status(404).json({ message: "Post not found!" });
 
@@ -58,13 +68,13 @@ exports.likePost = async (req, res) => {
       post.likes = post.likes.filter(id => id.toString() !== userId);
       if (post.likesCount > 0) post.likesCount -= 1;
       await post.save();
-      return res.status(200).json({ message: "Post unliked", likeCount: post.likeCount });
+      return res.status(200).json({ message: "Post unliked", likeCount: post.likesCount });
     }
 
     post.likes.push(userId);
     post.likesCount += 1;
     await post.save();
-    return res.status(200).json({ message: "Post liked", likeCount: post.likeCount });
+    return res.status(200).json({ message: "Post liked", likeCount: post.likesCount });
 
   } catch (error) {
     console.error("Error liking post:", error);
@@ -72,19 +82,15 @@ exports.likePost = async (req, res) => {
   }
 }
 
-
 exports.deletePost = async (req, res) => {
   console.log("Post ID to delete:", req.params.id);
   try {
     const id = req.params.id;
-    // 67fab0b9d1da6e371c248b37
 
     const post = await Post.findByIdAndDelete(id);
     if (!post) {
       return res.status(404).json({ message: "Post not found" });
     }
-
-    // remove post from user as array
     await User.findByIdAndUpdate(req.user.id, {
       $pull: {
         posts: {

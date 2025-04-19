@@ -61,7 +61,23 @@ exports.login = async (req, res) => {
   }
 };
 exports.getMe = async (req, res) => {
-  const user = await User.findById(req.user.id).populate("posts");
+  const user = await User.findById(req.user.id)
+    .populate({
+      path: "posts",
+      populate: [
+        {
+          path: "author",
+          select: "username fullname email profilePicture"
+        },
+        {
+          path: "comments",
+          populate: {
+            path: "author",
+            select: "username profilePicture"
+          }
+        }
+      ]
+    });
 
   if (!user) {
     return res.status(404).json({ message: "User not found" });
