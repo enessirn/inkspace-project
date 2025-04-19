@@ -43,16 +43,16 @@ function Content() {
     getData();
   }, []);
   return (
-    <div className='w-full md:container md:mx-auto h-full bg-background mt-8'>
+    <div className='w-full md:container md:mx-auto h-full bg-background mt-8 dark:bg-d-bg'>
       <div className="mx-auto py-4 flex flex-col justify-center items-center gap-4">
-        <h1 className='block w-1/2 text-center border-b-2 border-gray-300'>Discovery</h1>
+        <h1 className='block w-1/2 text-center border-b-2 border-gray-300 text-primary dark:text-d-primary'>Discovery</h1>
         {loading ? <Loading /> : posts.length !== 0 ? posts?.reverse().map((post) => (
           <PostCardFull key={post._id} post={post} me={me} isProfile={false} loading={loading} />
 
         )) : (
           <div className='w-full flex flex-col justify-center items-center gap-4 mt-4'>
-            <h1 className='text-muted text-2xl'>No posts found</h1>
-            <p className='text-muted text-md'>Be the first to post something!</p>
+            <h1 className='text-muted text-2xl text-primary dark:text-d-primary'>No posts found</h1>
+            <p className='text-muted text-md text-secondary dark:text-d-secondary'>Be the first to post something!</p>
           </div>
         )}
 

@@ -1,4 +1,3 @@
-import { Input } from 'antd';
 import Quill from 'quill';
 import 'quill/dist/quill.snow.css';
 import React, { useRef, useEffect, useState } from 'react';
@@ -6,7 +5,6 @@ import axios from 'axios';
 import { ToastContainer, toast } from 'react-toastify';
 import { Modal } from 'antd';
 import { SendOutlined, EyeOutlined } from '@ant-design/icons';
-
 export default function Editor() {
   const editorRef = useRef(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -97,9 +95,9 @@ export default function Editor() {
   };
 
   return (
-    <div className="w-[90%] md:container mx-auto mt-5 h-full">
+    <div className="w-[90%] md:container mx-auto mt-5 min-h-screen bg-background dark:bg-d-bg text-primary dark:text-d-primary">
       <h1 className='mb-4 border-b border-gray-300 text-2xl font-bold select-none'>Title</h1>
-      <Input disabled={loading} placeholder="Write title"
+      <input className='bg-background dark:bg-d-bg border border-border dark:border-d-secondary text-primary dark:text-d-primary w-full px-4 py-1 rounded' disabled={loading} placeholder="Write title"
         onChange={(e) => setTitle(e.target.value)}
       />
       <h1 className='my-4 border-b border-gray-300 text-2xl font-bold select-none'>Create Post</h1>

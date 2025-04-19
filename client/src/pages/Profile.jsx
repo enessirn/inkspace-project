@@ -34,9 +34,9 @@ function Profile() {
     ]
 
     return (
-        <div className="min-h-screen w-full">
+        <div className="min-h-screen w-full bg-background dark:bg-d-bg">
             <Navbar />
-            <div id='profile-info' className='w-full min-h-48 shadow-xl shadow-primary/15 p-4 flex'>
+            <div id='profile-info' className='w-full bg-background dark:bg-d-bg min-h-48 shadow-md dark:shadow-d-primary/15 shadow-primary/15 p-4 flex'>
                 {
                     loading ? <Skeleton avatar active paragraph={{ rows: 2, width: "30%" }} title={{ width: "50%" }} /> : (
                         <>
@@ -45,21 +45,21 @@ function Profile() {
 
                             </div>
                             <div className="flex flex-col gap-2 mt-4 ml-8 ">
-                                <h1 className='!text-5xl !font-black'>{me.fullname}</h1>
-                                <p className='!text-md !font-normal !text-muted'>@{me.username}</p>
-                                <p className='!text-xl !font-black !text-muted -mt-1'><SlotCounter value={Number(me.posts.length)} /> Post</p>
-                                <p className='!text-md !font-normal !text-muted'>Hello, I am using InkSpace!</p>
-                                <span className="text-sm text-gray-500">Joined {months[joinDate.getMonth()] + ", " +joinDate.getFullYear()}</span>
+                                <h1 className='!text-5xl !font-black !font-display text-primary dark:text-d-primary'>{me.fullname}</h1>
+                                <p className='!text-md !font-normal !text-muted text-primary dark:text-d-primary'>@{me.username}</p>
+                                <p className='!text-xl text-primary dark:text-d-primary !font-black !text-muted -mt-1'><SlotCounter value={Number(me.posts.length)} /> Post</p>
+                                <p className='!text-md !font-normal !text-muted text-secondary dark:text-d-secondary'>Hello, I am using InkSpace!</p>
+                                <span className="text-sm  text-secondary dark:text-d-secondary">Joined {months[joinDate.getMonth()] + ", " + joinDate.getFullYear()}</span>
                             </div>
                         </>
                     )
                 }
             </div>
 
-            <div id='posts' className="w-full flex flex-col gap-6 mt-8 p-8">
-                <h1 className='border-b border-gray-300'>Your Posts</h1>
+            <div id='posts' className="w-full flex flex-col gap-6 pt-8 p-8 shadow-sm shadow-primary/45 dark:shadow-d-primary/45 ">
+                <h1 className='border-b !font-display border-border text-primary dark:text-d-primary dark:border-d-border'>Your Posts</h1>
 
-                <MyPost  />
+                <MyPost />
             </div>
         </div>
     )

@@ -6,10 +6,14 @@ import CreatePost from "./pages/CreatePost";
 
 
 import Profile from "./pages/Profile";
+import UnknownPage from "./pages/UnknownPage";
+import { useState, useEffect } from "react"
 
 function App() {
+  
+const [theme,setTheme] = useState(false);
   return (
-    <>
+    <div className={`${theme ? "dark" : ""}`}>
 
       <BrowserRouter>
         <Routes>
@@ -17,9 +21,10 @@ function App() {
           <Route path="/login" element={<Login />}></Route>
           <Route path="/create-post" element={<CreatePost />}></Route>
           <Route path="/profile" element={<Profile />}></Route>
+          <Route path="*" element={<UnknownPage />}></Route>
         </Routes>
       </BrowserRouter>
-    </>
+    </div>
   );
 }
 

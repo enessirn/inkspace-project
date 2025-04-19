@@ -87,9 +87,9 @@ function PostCardFull({ me, post, setDeleteId, isProfile, loading }) {
         console.log("güncel yorumlar", comments)
     }, [disabled])
     return (
-        <div className="border border-border cursor-pointer mx-auto transition-all ease-in-out bg-background shadow-sm shadow-primary/45 hover:shadow-md hover:bg-primary/1 w-[90%] p-2 rounded-2xl xl:w-1/2 h-full " style={{ wordWrap: 'break-word' }}>
+        <div className="border border-border cursor-pointer mx-auto transition-all ease-in-out bg-card-background dark:bg-card-d-background shadow-sm shadow-primary/45 dark:border-d-border dark:hover:bg-card-d-background/80 hover:shadow-md hover:bg-primary/1 w-[90%] p-2 rounded-2xl xl:w-1/2 h-full " style={{ wordWrap: 'break-word' }}>
 
-            <div className="px-2 py-4">
+            <div className="px-2 py-4 ">
                 <div className="auth mb-4 flex justify-between flex-row items-center">
                     <div className="flex flex-row items-center gap-2">
                         <img
@@ -97,9 +97,9 @@ function PostCardFull({ me, post, setDeleteId, isProfile, loading }) {
                             src={isProfile ? me.profilePicture : post.author.profilePicture}
                             alt={`Profile Picture ${isProfile ? me.fullname : post.author.fullname}`}
                         />
-                        <span className="text-sm font-semibold">{isProfile ? me.username : post.author.username}</span>
-                        <span className="text-muted text-xs">|</span>
-                        <span className="text-muted text-xs ml-1">{moment(post.createdAt).fromNow()}</span>
+                        <span className="text-sm font-semibold text-primary dark:text-d-primary">{isProfile ? me.username : post.author.username}</span>
+                        <span className="text-muted text-xs text-primary dark:text-d-primary">|</span>
+                        <span className=" text-xs ml-1 text-secondary dark:text-d-secondary">{moment(post.createdAt).fromNow()}</span>
                     </div>
                     {
                         isProfile ? (
@@ -110,42 +110,42 @@ function PostCardFull({ me, post, setDeleteId, isProfile, loading }) {
                     }
 
                 </div>
-                <h1 className="header w-full text-xl lg:text-2xl font-bold !font-display">
+                <h1 className="header text-primary dark:text-d-primary w-full text-xl lg:text-2xl font-bold !font-display">
                     {post.title}
                 </h1>
-                <div className="title mt-2 p-2 w-full" dangerouslySetInnerHTML={{ __html: post.content }} >
+                <div className="title mt-2 p-2 w-full text-primary dark:text-d-primary" dangerouslySetInnerHTML={{ __html: post.content }} >
                 </div>
 
                 <div id="actions" className="flex justify-between items-center mt-4">
                     <div className="flex flex-row gap-4 items-center text-xl font-bold">
-                        <div className="cursor-pointer" onClick={likePost}> {liked ? <LikeFilled style={{ color: `${liked ? 'blue' : 'black'}`, transition: '0.5s all ease-in-out', fontSize: "24px" }} /> : <LikeOutlined style={{ fontSize: "24px", transition: '0.5s all ease-in-out' }} />}
+                        <div className="cursor-pointer text-primary dark:text-d-primary" onClick={likePost}> {liked ? <LikeFilled style={{ color: `${liked ? 'blue' : 'black'}`, transition: '0.5s all ease-in-out', fontSize: "24px" }} /> : <LikeOutlined style={{ fontSize: "24px", transition: '0.5s all ease-in-out' }} />} &nbsp;
                             <SlotCounter value={likeCount} />
                         </div>
-                        <div className="cursor-pointer" onClick={() => {
+                        <div className="cursor-pointer text-primary dark:text-d-primary" onClick={() => {
                             setHidden((prev) => !prev)
-                        }}><CommentOutlined /> <SlotCounter value={comments.length} /> </div>
+                        }}><CommentOutlined />&nbsp; <SlotCounter value={comments.length} /> </div>
                     </div>
 
-                    <button className="mr-4 cursor-pointer text-xl font-bold"><ShareAltOutlined /> Share</button>
+                    <button className="mr-4 cursor-pointer text-xl font-bold text-primary dark:text-d-primary"><ShareAltOutlined /> Share</button>
                 </div>
 
             </div>
 
-            <div className={`w-full ${hidden ? "h-0 hidden" : "h-full block"} rounded bg-background`}>
-                <span className='block font-bold text-xl pl-4 border-b border-border w-full'>Comments</span>
+            <div className={`w-full ${hidden ? "h-0 hidden" : "h-full block"} rounded bg-card-background dark:bg-card-d-background`}>
+                <span className='block text-xl pl-4 border-b border-border dark:border-d-border w-full text-primary dark:text-d-primary font-bold'>Comments</span>
                 {/* cooments */}
-                <div className='py-6 w-full flex flex-col gap-4 whitespace-normal break-words overflow-y-auto max-h-[500px]'>
+                <div className=' py-6 w-full flex flex-col gap-4 whitespace-normal break-words overflow-y-auto max-h-[500px]'>
                     {
-                        comments?.map((item) => (
+                        comments.length !== 0 ? comments.map((item) => (
                             <Comment key={item._id} username={item.author?.username} pfp={item.author?.profilePicture} text={item.text} createdAt={item.createdAt} />
                         )
-                        )
+                        ) : <p className='text-center text-2xl text-primary dark:text-d-primary font-bold'>No comment</p>
                     }
 
 
 
                 </div>
-                <div className='relative bottom-0 flex flex-row  gap-4 border-t-2 border-border w-full p-3'>
+                <div className='relative bottom-0 flex flex-row  gap-4 border-t-2 dark:border-d-border border-border w-full p-3'>
                     <div className='shrink-0 flex'>
                         <img
                             src={"https://fastly.picsum.photos/id/161/200/300.jpg?hmac=-nq4AHxOS9Wa6ljn39CmzpqO9vtccMNfDPUOsijD5Wk"}
@@ -153,9 +153,11 @@ function PostCardFull({ me, post, setDeleteId, isProfile, loading }) {
                             className="w-9 h-9 rounded-full object-cover mt-4"
                         />
                     </div>
-                    <form className='w-full flex-col flex items-end gap-2' type="submit" onSubmit={addComment}>
-                        <input value={text} onChange={(e) => setText(e.target.value)} disabled={disabled} className={`${disabled ? "cursor-wait" : "cursor-text"} w-full rounded-sm border-b hover:border-primary focus:border-primary focus:border-2 border-border outline-0 px-4 py-4`} type="text" placeholder={`${disabled ? "Loading..." : "Type something..."} `} required />
-                        <button disabled={disabled} type="submit" className={`bg-secondary py-2 px-4 text-border font-bold rounded hover:${disabled ? "" : "bg-border"} hover:${disabled ? "" : "text-primary"} transition-colors duration-500 ${disabled ? "cursor-wait" : "cursor-pointer"}`} ><SendOutlined /> Send </button>
+                    <form className='w-full bg-card-background dark:bg-card-d-background flex-col flex items-end gap-2' type="submit" onSubmit={addComment}>
+                        <input value={text} onChange={(e) => setText(e.target.value)} disabled={disabled} className={`${disabled ? "cursor-wait" : "cursor-text"} w-full rounded-sm border-b hover:border-primary focus:border-primary text-primary dark:text-d-primary focus:border-2 border-border dark:placeholder:text-d-primary/60 dark:border-d-primary dark:hover:border-d-secondary dark:focus:border-d-primary outline-0 px-4 py-4`} type="text" placeholder={`${disabled ? "Loading..." : "Type something..."} `} required />
+
+
+                        <button disabled={disabled} type="submit" className={`bg-secondary py-2 px-4 text-border font-bold rounded hover:${disabled ? "" : "bg-border "} hover:${disabled ? "" : "text-primary "} transition-colors duration-500 ${disabled ? "cursor-wait" : "cursor-pointer"}`} ><SendOutlined /> Send </button>
                     </form>
 
                 </div>

@@ -61,7 +61,7 @@ function MyPost() {
     }, [deleteId]);
 
     return (
-        <div className='w-full flex flex-col gap-6 mt-8 p-8'>
+        <div className='w-full flex flex-col gap-6 mt-8 p-8 bg-background dark:bg-d-bg'>
             {
                 loading ? <Loading /> : posts.length !== 0 ? posts.reverse().map((post) => (
                     <PostCardFull key={post._id} me={me} isProfile={true} post={post} setDeleteId={setDeleteId} />

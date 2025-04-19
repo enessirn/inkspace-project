@@ -1,15 +1,24 @@
 @import url("https://fonts.googleapis.com/css2?family=Merriweather:ital,opsz,wght@0,18..144,300..900;1,18..144,300..900&family=Open+Sans:ital,wght@0,300..800;1,300..800&display=swap");
 @import "tailwindcss";
-
-:root {
+@custom-variant dark (&:where(.dark, .dark *));
+@theme {
   --font-display: "Merriweather", serif;
   --font-sans: "Open Sans", sans-serif;
   --color-background: #FFFFFF;
   --color-primary: #242424;
+  --color-card-background: #F9F9F9;
   --color-secondary: #757575;
   --color-link: #0066cc;
   --color-border: #E0E0E0;
+
+  --color-d-bg: #292929;
+  --color-d-primary: #E0E0E0;
+  --color-d-secondary: #A8A8A8;
+  --color-d-link: #3399ff;
+  --color-d-border: #2C2C2C;
+  --color-card-d-background: #383838;
 }
+
 * {
   box-sizing: border-box;
   font-family: "Open Sans", sans-serif;
@@ -20,22 +29,17 @@ body {
   color: #242424;
   line-height: 1.6;
 }
-
-.write-story:hover .fa-pen-to-square {
-  color: var(--color-primary)
-}
-
 h1 {
   display: block;
   font-size: 2em;
-  color: var(--color-primary);
+
   font-weight: bold;
 }
 
 h2 {
   display: block;
   font-size: 1.5em;
-  color: var(--color-primary);
+
 
   font-weight: bold;
 }
@@ -43,28 +47,24 @@ h2 {
 h3 {
   display: block;
   font-size: 1.17em;
-  color: var(--color-primary);
   font-weight: bold;
 }
 
 h4 {
   display: block;
   font-weight: bold;
-  color: var(--color-primary);
 }
 
 h5 {
   display: block;
   font-size: .83em;
   font-weight: bold;
-  color: var(--color-primary);
 }
 
 h6 {
   display: block;
   font-size: .67em;
   font-weight: bold;
-  color: var(--color-primary);
 }
 
 ul {
