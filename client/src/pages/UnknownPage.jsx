@@ -1,6 +1,7 @@
 import React from 'react'
 import Navbar from '../layout/Navbar'
 import { Link } from 'react-router-dom';
+import Footer from '../layout/Footer';
 
 function UnknownPage() {
   return (
@@ -11,7 +12,7 @@ function UnknownPage() {
         <span>Please! Go to Home page</span>
 
         <Link to="/" className='py-1 px-4 text-center dark:text-d-primary text-primary font-bold text-3xl rounded bg-card-background dark:bg-card-d-background'>Home Page</Link>
-    
+      <Footer />
     </div>
   )
 }

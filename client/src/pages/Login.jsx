@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import Signin from "../components/Login/Signin";
 import Register from "../components/Login/Register";
+import Footer from "../layout/Footer";
 
 function Login() {
   const [switchBtn, setSwitchBtn] = useState(true);
@@ -48,6 +49,7 @@ function Login() {
           {switchBtn ? <Signin setSwitchBtn={setSwitchBtn} /> : <Register setSwitchBtn={setSwitchBtn} />}
         </div>
       </div>
+      <Footer />
     </div>
   );
 }

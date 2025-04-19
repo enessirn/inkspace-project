@@ -40,7 +40,6 @@ function MyPost() {
         getData();
     }
         , []);
-
     useEffect(() => {
         const updatedPosts = posts.filter((post) => post._id !== deleteId);
         setPosts(updatedPosts);
@@ -62,13 +61,13 @@ function MyPost() {
     return (
         <div className='w-full flex flex-col gap-6 mt-8 p-8 bg-background dark:bg-d-bg'>
             {
-                loading ? <Loading /> : posts.length !== 0 ? posts.reverse().map((post) => (
+                loading ? <Loading /> : posts.length !== 0 ? posts.map((post) => (
                     <PostCardFull key={post._id} me={me} isProfile={true} post={post} setDeleteId={setDeleteId} />
                 )) : (
-                    <div className='w-full flex flex-col justify-center items-center gap-4 mt-4 overflow-x-hidden'>
-                        <h1 className='text-muted text-2xl'>No posts found</h1>
-                        <p className='text-muted text-md'>Be the first to post something!</p>
-                    </div>
+                    <div className='w-full flex flex-col justify-center items-center gap-4 mt-4'>
+                    <h1 className='text-muted text-2xl text-primary dark:text-d-primary'>No posts found</h1>
+                    <p className='text-muted text-md text-secondary dark:text-d-secondary'>Be the first to post something!</p>
+                  </div>
                 )
             }
 

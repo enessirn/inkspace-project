@@ -4,6 +4,7 @@ import { Skeleton } from "antd";
 import MyPost from "../layout/MyPost";
 import SlotCounter from 'react-slot-counter';
 import axios from "axios";
+import Footer from "../layout/Footer";
 function Profile() {
     const [me, setMe] = useState(null);
     const [loading, setLoading] = useState(true);
@@ -61,6 +62,7 @@ function Profile() {
 
                 <MyPost />
             </div>
+            <Footer />
         </div>
     )
 }
