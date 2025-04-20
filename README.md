@@ -23,9 +23,12 @@
 
 ## 🧪 **Test Account**
 
-Email: john@doe.com
-
-Password: password
+```json
+{
+  "email": "john@doe.com",
+  "password": "password"
+}
+```
 
 You can use the following credentials to test the app:
 
