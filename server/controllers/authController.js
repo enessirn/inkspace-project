@@ -48,8 +48,8 @@ exports.login = async (req, res) => {
 
     res.cookie("token", token, {
       httpOnly: true,
-      secure: false,
-      sameSite: "lax",
+      secure: true,
+      sameSite: "None",
       maxAge: 168 * 60 * 60 * 1000,
     });
     res.status(200).json({ message: "Logged in successfully", user, token });
