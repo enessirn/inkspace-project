@@ -20,7 +20,7 @@ function Login() {
           A place to share knowledge and better understand the world
         </p>
 
-        <div className="w-96 flex h-fit justify-center mx-auto mt-10">
+        <div className="w-48 md:w-96 flex h-fit justify-center mx-auto mt-10">
           <button
             className={`w-1/2 border rounded-l-md font-bold cursor-pointer py-2 ${
               switchBtn
