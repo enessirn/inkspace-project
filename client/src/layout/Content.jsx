@@ -21,7 +21,6 @@ function Content() {
       }
       try {
         const res = await axios.get(`${import.meta.env.VITE_SERVER_API_URL}/posts`);
-        console.log("postt",res)
         setPosts(res?.data);
         const resultMe = await axios.get(`${import.meta.env.VITE_SERVER_API_URL}/auth/me`);
         setMe(resultMe.data.user);
